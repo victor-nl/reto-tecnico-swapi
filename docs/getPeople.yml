@@ -1,0 +1,25 @@
+documentation:
+  summary: Obtener datos de una persona de la base de datos
+  description: Obtiene la información de un personaje a partir de su ID
+  pathParams:
+    - name: id
+      description: id del personaje
+      schema:
+        type: string
+        pattern: "^[-a-z0-9_]+$"
+  methodResponses:
+    - statusCode: 200
+      responseBody:
+        description: Data del personaje
+      responseModels:
+        application/json: 
+    - statusCode: 404
+      responseBody:
+        description: Personaje no encontrado
+      responseModels:
+        application/json: 
+    - statusCode: 500
+      responseBody:
+        description: Error de servidor
+      responseModels:
+        application/json: 

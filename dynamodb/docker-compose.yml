@@ -1,0 +1,16 @@
+#https://github.com/serverless/examples/blob/v3/aws-node-http-api-dynamodb-local/dynamodb/docker-compose.yml
+version: "3"
+
+services:
+  dynamodb:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 8001:8000
+    volumes:
+      - aws-http-api-dynamodb:/home/dynamodblocal/db
+
+volumes:
+  aws-http-api-dynamodb:
+    driver: local

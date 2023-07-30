@@ -1,0 +1,14 @@
+documentation:
+  summary: Obtener la lista de personajes
+  description: Obtiene la lista de personajes regustrados en la bd
+  methodResponses:
+    - statusCode: 200
+      responseBody:
+        description: Arreglo de objetos con la información de los personajes
+      responseModels:
+        application/json: 
+    - statusCode: 500
+      responseBody:
+        description: Error de servidor
+      responseModels:
+        application/json: 

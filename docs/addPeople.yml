@@ -1,0 +1,18 @@
+documentation:
+  summary: crear un personaje
+  description: crear un personaje en la base de datos
+  requestBody:
+    description: "json con datos del personaje"
+  requestModels:
+    application/json:
+  methodResponses:
+    - statusCode: 201
+      responseBody:
+        description: Personaje creado
+      responseModels:
+        application/json: 
+    - statusCode: 500
+      responseBody:
+        description: Error de servidor
+      responseModels:
+        application/json: 

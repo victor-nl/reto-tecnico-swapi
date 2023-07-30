@@ -1,0 +1,86 @@
+service: reto-tecnico-swapi
+frameworkVersion: "3"
+custom:
+  documentation: ${file(docs/serverless.docs.yml):documentation}
+  tableName: "people-db-${sls:stage}"
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  region: us-east-1
+  #profile: serverless
+  iam:
+    role:
+      statements:
+        - Effect: Allow
+          Action:
+            - dynamodb:Query
+            - dynamodb:Scan
+            - dynamodb:GetItem
+            - dynamodb:PutItem
+            - dynamodb:UpdateItem
+            - dynamodb:DeleteItem
+          Resource:
+            - Fn::GetAtt: [PeopleTable, Arn ]
+  environment:
+    DYNAMODB_TABLE: ${self:custom.tableName}
+
+functions:
+  getPeopleSwapi:
+    handler: src/functions/people/getPeopleSwapi.handler
+    events:
+      - http:
+          documentation: ${file(docs/getPeopleSwapi.yml):documentation}
+          path: /people/swapi/{id}
+          method: get
+
+  getPeoples:
+    handler: src/functions/people/getPeoples.handler
+    events:
+      - http:
+          documentation: ${file(docs/getPeoples.yml):documentation}
+          path: /people
+          method: get
+
+  getPeople:
+    handler: src/functions/people/getPeople.handler
+    events:
+      - http:
+          documentation: ${file(docs/getPeople.yml):documentation}
+          path: /people/{id}
+          method: get
+  
+  addPeople:
+    handler: src/functions/people/addPeople.handler
+    events:
+      - http:
+          documentation: ${file(docs/addPeople.yml):documentation}
+          path: /people
+          method: post
+
+resources:
+  Resources:
+    PeopleTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: S
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH
+        TableName: ${self:custom.tableName}
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+
+plugins:
+  - serverless-webpack
+  - serverless-offline
+  - serverless-jest-plugin
+  - serverless-openapi-documentation
+
+# configurar el manejo del código empaquetado
+package:
+  individually: true
+  excludeDevDependencies: true

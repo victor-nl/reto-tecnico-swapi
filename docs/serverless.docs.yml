@@ -1,0 +1,12 @@
+documentation:
+  version: "1.0.0"
+  title: "Reto técnico swapi"
+  description:  Desarrollo de reto técnico serverless usando swapi, lambda y dynamodb
+  contact:
+    name: Victor Neciosup Lumbre
+    email: victor.neciosup@gmail.com
+
+  models:
+    - name: ErrorServer
+      description: Error de servidor
+      contentType: application/json

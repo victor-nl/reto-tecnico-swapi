@@ -1,0 +1,25 @@
+documentation:
+  summary: Obtener datos de una persona consumiendo swapi
+  description: Obtiene la información de un personaje a partir de su ID
+  pathParams:
+    - name: id
+      description: id del personaje
+      schema:
+        type: number
+        pattern: "^[0-9_]+$"
+  methodResponses:
+    - statusCode: 200
+      responseBody:
+        description: Data del personaje traducido al español
+      responseModels:
+        application/json: 
+    - statusCode: 404
+      responseBody:
+        description: Personaje no encontrado
+      responseModels:
+        application/json: 
+    - statusCode: 500
+      responseBody:
+        description: Error de servidor
+      responseModels:
+        application/json: 
